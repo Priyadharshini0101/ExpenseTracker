@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="messageClickListener"
+            type="com.example.expensetracker.MessageClickListener" />
+        <variable
+            name="data"
+            type="com.example.expensetracker.modal.Transaction" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->messageClickListener.onClick(data)}">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="5dp"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+          >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/sending_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Payment to user"
+                    android:layout_margin="16dp"
+                    android:text="@{`Payment to ` + data.expenseUserName}"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Notes"
+                    android:layout_marginStart="16dp"
+                    android:text="@{data.notes}"
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sending_to" />
+
+                <TextView
+                    android:id="@+id/amount_to_be_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="₹100"
+                    android:textStyle="bold"
+                    android:layout_margin="8dp"
+                    android:text="@{`₹ ` + Integer.toString(data.amount)}"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/notes" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

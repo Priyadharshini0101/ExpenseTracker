@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="userClickListener"
+            type="com.example.expensetracker.UserClickListener" />
+        <variable
+            name="data"
+            type="com.example.expensetracker.modal.Expense" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:onClick="@{()->userClickListener.onClick(data)}"
+
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{data.userName}"
+        android:padding="8dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/total_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{`₹ ` + Integer.toString(data.remaining)}"
+        android:padding="8dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintStart_toEndOf="@id/username"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Updated on"
+        android:paddingStart="8dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
