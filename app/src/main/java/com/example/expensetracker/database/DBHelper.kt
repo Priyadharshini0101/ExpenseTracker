@@ -14,6 +14,7 @@ import java.lang.Math.abs
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
+
     override fun onCreate(db: SQLiteDatabase) {
         val query = ("CREATE TABLE " + TABLE_NAME + " (" + ID + " INTEGER PRIMARY KEY, " + USER_NAME + " TEXT," + AMOUNT_SENT + " INTEGER," +
                  AMOUNT_RECEIVED + " INTEGER," + REMAINING+ " INTEGER" + ")")
@@ -27,6 +28,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 //       Do something
     }
 
+
     fun insertData(expense:Expense){
             val db = this.writableDatabase
             val values = ContentValues()
@@ -35,6 +37,7 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
             values.put(AMOUNT_RECEIVED, expense.amountReceivedByTheUser)
             values.put(REMAINING, abs(expense.amountSentByTheUser - expense.amountReceivedByTheUser))
             db.insert(TABLE_NAME, null, values)
+
             db.close()
     }
     private var _sum_Send= MutableLiveData<Int?>()
