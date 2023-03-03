@@ -33,7 +33,7 @@ class TransactionActivity : AppCompatActivity() {
         val adapter= AdapterTransaction(
             MessageClickListener { id ->
                 transactionViewModel.navigateToDeleteMessage(id)
-            })
+            },transactionViewModel.data)
 
         binding.recyclerView.adapter=adapter
 

@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="messageClickListener"
-            type="com.example.expensetracker.MessageClickListener" />
+
         <variable
             name="data1"
             type="com.example.expensetracker.modal.Transaction" />
@@ -14,8 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:onClick="@{()->messageClickListener.onClick(data1)}">
+>
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"
             android:layout_width="wrap_content"

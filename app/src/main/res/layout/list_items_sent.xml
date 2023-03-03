@@ -5,9 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="messageClickListener"
-            type="com.example.expensetracker.MessageClickListener" />
-        <variable
             name="data"
             type="com.example.expensetracker.modal.Transaction" />
     </data>
@@ -16,7 +13,7 @@
         android:id="@+id/payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{()->messageClickListener.onClick(data)}">
+  >
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"

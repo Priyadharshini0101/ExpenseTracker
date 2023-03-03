@@ -4,17 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnLongClickListener
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expensetracker.databinding.ListItemsReceivedBinding
 import com.example.expensetracker.databinding.ListItemsSentBinding
-import com.example.expensetracker.generated.callback.OnClickListener
 import com.example.expensetracker.modal.Transaction
 
 
-class AdapterTransaction( val clickListener1: MessageClickListener,private val data:LiveData<Transaction>) : ListAdapter<Transaction, RecyclerView.ViewHolder>(MessageDiffCallback()) {
+class AdapterTransaction(val clickListener1: MessageClickListener, private val data: MutableLiveData<List<Transaction>>) : ListAdapter<Transaction, RecyclerView.ViewHolder>(MessageDiffCallback()) {
 
     private val holderTypeMessageReceived = 1
     private val holderTypeMessageSent = 2
@@ -22,9 +21,8 @@ class AdapterTransaction( val clickListener1: MessageClickListener,private val d
 
     class ReceivedViewHolder(private val binding: ListItemsReceivedBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Transaction,clickListener1: MessageClickListener) {
+        fun bind(item: Transaction) {
            binding.data1 = item
-            binding.messageClickListener=clickListener1
             binding.executePendingBindings()
         }
 
@@ -34,9 +32,8 @@ class AdapterTransaction( val clickListener1: MessageClickListener,private val d
     class SentViewHolder(private val binding: ListItemsSentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Transaction,clickListener1: MessageClickListener) {
+        fun bind(item: Transaction) {
             binding.data = item
-            binding.messageClickListener=clickListener1
             binding.executePendingBindings()
 
         }
@@ -53,16 +50,17 @@ class AdapterTransaction( val clickListener1: MessageClickListener,private val d
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             holderTypeMessageSent -> (holder as SentViewHolder).bind(
-                getItem(position),clickListener1
+                getItem(position)
             )
             holderTypeMessageReceived -> (holder as ReceivedViewHolder).bind(
 
-                getItem(position),clickListener1
+                getItem(position)
             )
         }
 
         holder.itemView.setOnLongClickListener(object : OnLongClickListener {
             override fun onLongClick(p0: View?): Boolean {
+                clickListener1.onClick(data.value!!.get(position))
                 return true
             }
         })
@@ -91,7 +89,7 @@ class AdapterTransaction( val clickListener1: MessageClickListener,private val d
 
 
 class MessageClickListener(val clickListener: (transition:Transaction) -> Unit){
-    fun onClick(transition: Transaction)=clickListener(transition)
+    fun onClick(transition:Transaction)=clickListener(transition)
 }
 class MessageDiffCallback : DiffUtil.ItemCallback<Transaction>() {
     override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
